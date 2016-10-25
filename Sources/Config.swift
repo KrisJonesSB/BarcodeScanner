@@ -21,6 +21,12 @@ public struct SettingsButton {
   public static var color = UIColor.white
 }
 
+public struct CustomButton {
+  public static var text = NSLocalizedString("Custom Button Text", comment: "")
+  public static var color = UIColor.white
+  public static var shouldShow = true
+}
+
 public struct Info {
   public static var text = NSLocalizedString(
     "Place the barcode within the window to scan. The search will start automatically.", comment: "")
