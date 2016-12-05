@@ -332,7 +332,7 @@ open class BarcodeScannerController: UIViewController {
     headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 64)
     flashButton.frame = CGRect(x: view.frame.width - 50, y: 73, width: 37, height: 37)
     if CustomButton.shouldShow {
-      customButton.frame = CGRect(x: 20, y: 40, width: 120, height: 120)
+      customButton.frame = CGRect(x: 20, y: 80, width: 120, height: 80)
     }
     infoView.frame = infoFrame
     
