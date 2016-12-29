@@ -4,9 +4,9 @@ import AVFoundation
 // MARK: - Configurations
 
 public struct Title {
-  public static var text = NSLocalizedString("Scan barcode", comment: "")
-  public static var font = UIFont.boldSystemFont(ofSize: 17)
-  public static var color = UIColor.black
+  public static var text = NSLocalizedString("Scan Barcode", comment: "")
+  public static var font =  UIFont(name: "OpenSans", size: 18)
+  public static var color =  UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1.0)
 }
 
 public struct CloseButton {

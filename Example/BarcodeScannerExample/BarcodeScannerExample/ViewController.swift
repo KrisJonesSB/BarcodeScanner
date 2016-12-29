@@ -39,6 +39,10 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: BarcodeScannerCodeDelegate {
+  public func customButtonPressed(_ controller: BarcodeScannerController) {
+    print("button pressed")
+  }
+
 
   func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
     print(code)
@@ -49,6 +53,7 @@ extension ViewController: BarcodeScannerCodeDelegate {
       controller.resetWithError()
     }
   }
+  
 }
 
 extension ViewController: BarcodeScannerErrorDelegate {
