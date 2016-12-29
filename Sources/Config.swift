@@ -11,8 +11,8 @@ public struct Title {
 
 public struct CloseButton {
   public static var text = NSLocalizedString("Close", comment: "")
-  public static var font = UIFont.boldSystemFont(ofSize: 17)
-  public static var color = UIColor.black
+  public static var font =  UIFont(name: "OpenSans", size: 18)
+  public static var color = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1.0)
 }
 
 public struct SettingsButton {
@@ -37,12 +37,12 @@ public struct Info {
   public static var settingsText = NSLocalizedString(
     "In order to scan barcodes you have to allow camera under your settings.", comment: "")
 
-  public static var font = UIFont.boldSystemFont(ofSize: 14)
-  public static var textColor = UIColor.black
+  public static var font = UIFont(name: "OpenSans", size: 14)
+  public static var textColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1.0)
   public static var tint = UIColor.black
 
-  public static var loadingFont = UIFont.boldSystemFont(ofSize: 16)
-  public static var loadingTint = UIColor.black
+  public static var loadingFont = UIFont(name: "OpenSans", size: 16)
+  public static var loadingTint = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1.0)
 
   public static var notFoundTint = UIColor.red
 }
