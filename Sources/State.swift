@@ -1,3 +1,4 @@
+
 import UIKit
 
 // MARK: - Status
@@ -66,25 +67,25 @@ enum State {
     case .scanning:
       styles = (
         tint: Info.tint,
-        font: Info.font,
+        font: Info.font!,
         alignment: .left
       )
     case .processing:
       styles = (
         tint: Info.loadingTint,
-        font: Info.loadingFont,
+        font: Info.loadingFont!,
         alignment: .center
       )
     case .unauthorized:
       styles = (
         tint: Info.tint,
-        font: Info.font,
+        font: Info.font!,
         alignment: .left
       )
     case .notFound:
       styles = (
         tint: Info.notFoundTint,
-        font: Info.loadingFont,
+        font: Info.loadingFont!,
         alignment: .center
       )
     }
