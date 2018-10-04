@@ -63,10 +63,9 @@ class InfoView: UIVisualEffectView {
     let blurEffect = UIBlurEffect(style: .extraLight)
     super.init(effect: blurEffect)
 
-    [label, imageView, borderView].forEach {
-      addSubview($0)
-    }
-
+    self.contentView.addSubview(label)
+    self.contentView.addSubview(imageView)
+    self.contentView.addSubview(borderView)
     status = Status(state: .scanning)
   }
 
