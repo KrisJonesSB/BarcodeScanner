@@ -31,7 +31,7 @@ public protocol BarcodeScannerDismissalDelegate: class {
 open class BarcodeScannerController: UIViewController {
   
   /// Video capture device.
-  lazy var captureDevice: AVCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+    lazy var captureDevice: AVCaptureDevice = AVCaptureDevice.default(for: .video)!
   
   /// Capture session.
   lazy var captureSession: AVCaptureSession = AVCaptureSession()
@@ -82,8 +82,8 @@ open class BarcodeScannerController: UIViewController {
     let button = UIButton(type: .system)
     let title = NSAttributedString(string: SettingsButton.text,
                                    attributes: [
-                                    NSFontAttributeName : SettingsButton.font,
-                                    NSForegroundColorAttributeName : SettingsButton.color,
+                                    NSAttributedStringKey.font : SettingsButton.font,
+                                    NSAttributedStringKey.foregroundColor : SettingsButton.color,
                                     ])
     
     button.setAttributedTitle(title, for: UIControlState())
@@ -189,7 +189,7 @@ open class BarcodeScannerController: UIViewController {
     super.viewDidLoad()
     
     videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-    videoPreviewLayer?.videoGravity = AVLayerVideoGravityResize
+    videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resize
     
     view.backgroundColor = UIColor.black
     
@@ -232,7 +232,7 @@ open class BarcodeScannerController: UIViewController {
   /**
    `UIApplicationWillEnterForegroundNotification` action.
    */
-  func appWillEnterForeground() {
+    @objc func appWillEnterForeground() {
     torchMode = .off
     animateFocusView()
   }
@@ -243,13 +243,13 @@ open class BarcodeScannerController: UIViewController {
    Sets up camera and checks for camera permissions.
    */
   func setupCamera() {
-    let authorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+    let authorizationStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
     
     if authorizationStatus == .authorized {
       setupSession()
       status = Status(state: .scanning)
     } else if authorizationStatus == .notDetermined {
-      AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo,
+        AVCaptureDevice.requestAccess(for: AVMediaType.video,
                                     completionHandler: { (granted: Bool) -> Void in
                                       DispatchQueue.main.async {
                                         if granted {
@@ -340,7 +340,7 @@ open class BarcodeScannerController: UIViewController {
       videoPreviewLayer.frame = view.layer.bounds
       
       if videoPreviewLayer.connection != nil {
-        videoPreviewLayer.connection.videoOrientation = .portrait
+        videoPreviewLayer.connection!.videoOrientation = .portrait
       }
     }
     
@@ -417,7 +417,7 @@ open class BarcodeScannerController: UIViewController {
   /**
    Opens setting to allow camera usage.
    */
-  func settingsButtonDidPress() {
+    @objc func settingsButtonDidPress() {
     DispatchQueue.main.async {
       if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
         UIApplication.shared.openURL(settingsURL)
@@ -428,11 +428,11 @@ open class BarcodeScannerController: UIViewController {
   /**
    Sets the next torch mode.
    */
-  func flashButtonDidPress() {
+    @objc func flashButtonDidPress() {
     torchMode = torchMode.next
   }
   
-  func customButtonTap() {
+    @objc func customButtonTap() {
     print("custom button Tap")
     codeDelegate?.customButtonPressed(self)
     // Call custom button delegate
@@ -460,7 +460,7 @@ extension BarcodeScannerController: AVCaptureMetadataOutputObjectsDelegate {
     }
     
     animateFlash(whenProcessing: isOneTimeSearch)
-    codeDelegate?.barcodeScanner(self, didCaptureCode: code, type: metadataObj.type)
+    codeDelegate?.barcodeScanner(self, didCaptureCode: code, type: metadataObj.type.rawValue)
   }
 }
 
