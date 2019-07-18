@@ -68,11 +68,12 @@ class HeaderView: UIView {
     button.sizeToFit()
 
     button.frame.origin = CGPoint(x: 15,
-      y: ((frame.height - button.frame.height) / 2) + padding)
+                                  y: ((frame.height - button.frame.height) / 2) + padding)
 
     label.frame = CGRect(
-      x: 0, y: ((frame.height - labelHeight) / 2) + padding,
-      width: frame.width, height: labelHeight)
+        x: 0,
+        y: ((frame.height - labelHeight) / 2) + padding,
+        width: frame.width, height: labelHeight)
   }
 
   // MARK: - Actions

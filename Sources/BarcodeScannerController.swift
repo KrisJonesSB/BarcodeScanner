@@ -46,7 +46,6 @@ open class BarcodeScannerController: UIViewController {
     lazy var flashButton: UIButton = { [unowned self] in
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(flashButtonDidPress), for: .touchUpInside)
-
         return button
     }()
 
@@ -207,6 +206,9 @@ open class BarcodeScannerController: UIViewController {
         torchMode = .off
         focusView.isHidden = true
         headerView.delegate = self
+        
+        setupFrames()
+        infoView.setupFrames()
 
         setupCamera()
 
@@ -218,9 +220,6 @@ open class BarcodeScannerController: UIViewController {
 
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        setupFrames()
-        infoView.setupFrames()
         headerView.isHidden = !isBeingPresented
     }
 
@@ -313,6 +312,7 @@ open class BarcodeScannerController: UIViewController {
    Resets the current state.
    */
     func resetState() {
+        print("Resetting state")
         let alpha: CGFloat = status.state == .scanning ? 1 : 0
 
         torchMode = .off
@@ -334,8 +334,13 @@ open class BarcodeScannerController: UIViewController {
    Sets frames of the subviews.
    */
     func setupFrames() {
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 64)
-        flashButton.frame = CGRect(x: view.frame.width - 50, y: 73, width: 37, height: 37)
+        var topInset: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            topInset = view.safeAreaInsets.top
+        }
+        
+        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: topInset + 40)
+        flashButton.frame = CGRect(x: view.frame.width - 50, y: topInset + 73, width: 37, height: 37)
         if CustomButton.shouldShow {
             customButton.frame = CGRect(x: 20, y: 80, width: 120, height: 80)
         }
@@ -447,7 +452,6 @@ open class BarcodeScannerController: UIViewController {
 // MARK: - AVCaptureMetadataOutputObjectsDelegate
 
 extension BarcodeScannerController: AVCaptureMetadataOutputObjectsDelegate {
-
     public func captureOutput(_ captureOutput: AVCaptureOutput!,
         didOutputMetadataObjects metadataObjects: [Any]!,
         from connection: AVCaptureConnection!) {
@@ -473,7 +477,6 @@ extension BarcodeScannerController: AVCaptureMetadataOutputObjectsDelegate {
 
 extension BarcodeScannerController: HeaderViewDelegate {
     func headerViewDidPressClose(_ headerView: HeaderView) {
-        torchMode = .off
         dismissalDelegate?.barcodeScannerDidDismiss(self)
     }
 }
